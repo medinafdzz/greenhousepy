@@ -42,5 +42,14 @@ class TestGreenhouse(TestCase):
         mock_sprinkler.assert_called_with(system.SPRINKLER_PIN, False)
         self.assertFalse(system.is_sprinkler_on())
 
+    @patch.object(Seesaw, attribute="moisture_read")
+    @patch.object(GPIO, attribute="output")
+    def test_manage_sprinkler_should_be_turned_on(self,mock_sprinkler: Mock, mock_moisture_sensor: Mock):
+        mock_moisture_sensor.return_value = 374
+        system = Greenhouse()
+        system.manage_sprinkler()
+        mock_sprinkler.assert_called_with(system.SPRINKLER_PIN, True)
+        self.assertTrue(system.is_sprinkler_on())
+
 
 
