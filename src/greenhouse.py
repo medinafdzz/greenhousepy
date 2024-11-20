@@ -36,8 +36,11 @@ class Greenhouse:
         return moisture
 
     def turn_on_sprinkler(self) -> None:
-        # To be implemented
-        pass
+        GPIO.output(self.SPRINKLER_PIN, GPIO.HIGH)
+        self.sprinkler_on = True
+
+    def is_sprinkler_on(self) -> bool:
+        return self.sprinkler_on
 
     def turn_off_sprinkler(self) -> None:
         # To be implemented
