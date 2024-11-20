@@ -20,13 +20,13 @@ class TestGreenhouse(TestCase):
     def test_measure_soil_moisture_below_range(self, mock_moisture_sensor: Mock):
         mock_moisture_sensor.return_value = 299
         system = Greenhouse()
-        self.assertRaises(GreenhouseError, system.measure_soil_moisture())
+        self.assertRaises(GreenhouseError, system.measure_soil_moisture)
 
     @patch.object(Seesaw, attribute="moisture_read")
     def test_measure_soil_moisture_above_range(self, mock_moisture_sensor: Mock):
         mock_moisture_sensor.return_value = 501
         system = Greenhouse()
-        self.assertRaises(GreenhouseError, system.measure_soil_moisture())
+        self.assertRaises(GreenhouseError, system.measure_soil_moisture)
 
     @patch.object(GPIO, attribute="output")
     def test_turn_on_sprikler(self, mock_sprinkler: Mock):
@@ -60,6 +60,14 @@ class TestGreenhouse(TestCase):
         system.manage_sprinkler()
         mock_sprinkler.assert_called_with(system.SPRINKLER_PIN, False)
         self.assertFalse(system.is_sprinkler_on())
+
+    @patch.object(GPIO, attribute="input")
+    def test_check_too_much_light(self, mock_photoresistor: Mock):
+        system = Greenhouse()
+        mock_photoresistor.return_value = True
+        self.assertTrue(system.check_too_much_light())
+
+
 
 
 
