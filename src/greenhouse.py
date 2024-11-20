@@ -28,7 +28,10 @@ class Greenhouse:
 
     def measure_soil_moisture(self) -> int:
         # To be implemented
-        return self.soil_moisture_sensor.moisture_read()
+        moisture = self.soil_moisture_sensor.moisture_read()
+        if moisture < 300:
+            raise GreenhouseError("Soil moisture is below valid range")
+        return moisture
 
     def turn_on_sprinkler(self) -> None:
         # To be implemented
