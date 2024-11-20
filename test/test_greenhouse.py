@@ -76,6 +76,15 @@ class TestGreenhouse(TestCase):
         mock_red_light.assert_called_with(system.LED_PIN, True)
         self.assertTrue(system.red_light_on)
 
+    @patch.object(GPIO, attribute="output")
+    @patch.object(GPIO, attribute="input")
+    def test_turn_off_lightbulb_should_be_turned_off(self, mock_photoresistor: Mock, mock_red_light: Mock):
+        mock_photoresistor.return_value = False
+        system = Greenhouse()
+        system.manage_lightbulb()
+        mock_red_light.assert_called_with(system.LED_PIN, False)
+        self.assertFalse(system.red_light_on)
+
 
 
 
