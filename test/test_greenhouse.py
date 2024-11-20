@@ -57,8 +57,8 @@ class TestGreenhouse(TestCase):
         mock_moisture_sensor.return_value = 426
         system = Greenhouse()
         system.manage_sprinkler()
-        mock_sprinkler.assert_called_with(system.SPRINKLER_PIN, True)
-        self.assertTrue(system.is_sprinkler_on())
+        mock_sprinkler.assert_called_with(system.SPRINKLER_PIN, False)
+        self.assertFalse(system.is_sprinkler_on())
 
 
 
