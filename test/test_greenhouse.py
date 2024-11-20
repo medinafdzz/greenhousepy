@@ -10,7 +10,7 @@ from src.greenhouse import Greenhouse, GreenhouseError
 class TestGreenhouse(TestCase):
 
     @patch.object(Seesaw, attribute='moisture_read')
-    def test_measure_soil_moisture_valid_range(self, mock_moisture_sensor: Mock):
+    def test_soil_measure_moisture_valid_range(self, mock_moisture_sensor: Mock):
         mock_moisture_sensor.return_value = 300
         system = Greenhouse()
         moisture = system.measure_soil_moisture()
